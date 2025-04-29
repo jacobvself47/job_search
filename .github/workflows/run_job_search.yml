@@ -43,11 +43,11 @@ jobs:
       - id: read_md
         name: Read generated markdown table
         run: |
-          {
-            echo "markdown<<EOF"
-            cat email_body.md
-            echo "EOF"
-          } >> "$GITHUB_OUTPUT"
+            markdown_output=$(cat email_body.md)
+            markdown_output="${markdown_output//'%'/'%25'}"
+            markdown_output="${markdown_output//$'\n'/'%0A'}"
+            markdown_output="${markdown_output//$'\r'/'%0D'}"
+            echo "markdown=$markdown_output" >> "$GITHUB_OUTPUT"
      
       - name: Send email notification
         uses: dawidd6/action-send-mail@v3
