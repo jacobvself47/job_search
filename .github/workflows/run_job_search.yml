@@ -57,9 +57,7 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.GOOGLE_APP_PASSWORD }}
           subject: Python Script Run Completed
-          body: |
-            Here are the jobs for today.
-          html_body: ${{ steps.read_md.outputs.markdown }}
+          body: ${{ steps.read_md.outputs.markdown }}
           to: ${{ secrets.EMAIL_USERNAME }}
           from: ${{ secrets.EMAIL_USERNAME }}
           secure: true
