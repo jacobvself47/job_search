@@ -24,5 +24,8 @@ jobs:
           pip install -r requirements.txt
       
       - name: Run script
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY}}
+          GOOGLE_SE_ID: ${{ secrets.GOOGLE_SE_ID}}
         run: |
           python job_search.py
