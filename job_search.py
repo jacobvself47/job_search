@@ -2,12 +2,18 @@ import os
 import requests
 import time
 import csv
+import sys
 
 api_key = os.getenv("GOOGLE_API_KEY")
 cse_id = os.getenv("GOOGLE_SE_ID")
 
 
-# Replace with your values
+if not api_key:
+    print("Error: GOOGLE_API_KEY is not set")
+    sys.exit(1)
+if not cse_id:
+    print("Error: GOOGLE_SE_ID is not set")
+    sys.exit(1)
 
 
 def google_job_search(total_results=50, output_file="results.csv"):

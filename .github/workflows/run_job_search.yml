@@ -29,3 +29,8 @@ jobs:
           GOOGLE_SE_ID: ${{ secrets.GOOGLE_SE_ID}}
         run: |
           python job_search.py
+      - name: Upload CSV Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: results-csv
+          path: output.csv
