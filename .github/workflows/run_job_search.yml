@@ -35,6 +35,10 @@ jobs:
         with:
           name: results-csv
           path: results.csv
+
+      - name: Generate markdown table from CSV
+        run: |
+          python generate_md_table.py
       
       - id: read_md
         name: Read generated markdown table
