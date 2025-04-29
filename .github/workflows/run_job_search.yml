@@ -34,3 +34,18 @@ jobs:
         with:
           name: results-csv
           path: results.csv
+      - name: Send email notification
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.GOOGLE_APP_PASSWORD }}
+          subject: Python Script Run Completed
+          body: |
+            The script has finished running successfully.
+            - Artifact output.csv is available for download.
+            - Have a great day!
+          to: ${{ secrets.EMAIL_USERNAME }}
+          from: ${{ secrets.EMAIL_USERNAME }}
+          secure: true
