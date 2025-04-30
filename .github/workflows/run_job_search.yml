@@ -39,12 +39,6 @@ jobs:
       - name: Generate markdown table from CSV
         run: |
           python generate_md_table.py
-          
-      - name: Upload MD Artifact
-        uses: actions/upload-artifact@v4
-        with: 
-          name: email_body.md
-          path: email_body.md
      
       - name: Send email notification
         uses: dawidd6/action-send-mail@v3
@@ -54,7 +48,8 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.GOOGLE_APP_PASSWORD }}
           subject: Python Script Run Completed
-          body: file://email_body.md
+          html_body: file://email_body.md
+          convert_markdown: true
           to: ${{ secrets.EMAIL_USERNAME }}
           from: ${{ secrets.EMAIL_USERNAME }}
           secure: true
