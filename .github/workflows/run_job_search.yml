@@ -39,7 +39,12 @@ jobs:
       - name: Generate markdown table from CSV
         run: |
           python generate_md_table.py
-          echo email_body.md
+          
+      - name: Upload MD Artifact
+        uses: actions/upload-artifact@v4
+        with: 
+          name: email_body.md
+          path: email_body.md
       
       - id: read_md
         name: Read generated markdown table
@@ -59,6 +64,7 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.GOOGLE_APP_PASSWORD }}
           subject: Python Script Run Completed
+          body: results.csv
           html_body: ${{ steps.read_md.outputs.markdown }}
           to: ${{ secrets.EMAIL_USERNAME }}
           from: ${{ secrets.EMAIL_USERNAME }}
