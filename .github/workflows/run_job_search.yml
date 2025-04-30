@@ -45,27 +45,16 @@ jobs:
         with: 
           name: email_body.md
           path: email_body.md
-      
-      - id: read_md
-        name: Read generated markdown table
-        run: |
-            markdown_output=$(cat email_body.md)
-            markdown_output="${markdown_output//'%'/'%25'}"
-            markdown_output="${markdown_output//$'\n'/'%0A'}"
-            markdown_output="${markdown_output//$'\r'/'%0D'}"
-            echo "markdown=$markdown_output" >> "$GITHUB_OUTPUT"
      
       - name: Send email notification
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
           server_port: 465
-          convert_markdown: true
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.GOOGLE_APP_PASSWORD }}
           subject: Python Script Run Completed
-          body: results.csv
-          html_body: ${{ steps.read_md.outputs.markdown }}
+          body: file://email_body.md
           to: ${{ secrets.EMAIL_USERNAME }}
           from: ${{ secrets.EMAIL_USERNAME }}
           secure: true
